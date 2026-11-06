@@ -7,6 +7,7 @@ import type { ChannelRow } from "../api/types";
 import { DataValue, DelayNotice } from "../components/DataValue";
 import { MetricCard } from "../components/Field";
 import { MiniChart } from "../components/MiniChart";
+import { M9_SPU, M9ChannelSupplement } from "../components/M9Supplement";
 import { SectionCard } from "../components/SectionCard";
 import { StateTag } from "../components/State";
 import { TrendChart } from "../components/TrendChart";
@@ -57,10 +58,17 @@ export function ChannelsPage() {
 
   return (
     <div className="page-stack">
+      {spu === M9_SPU ? <M9ChannelSupplement /> : null}
       <SectionCard
         loading={query.isLoading}
-        title={data ? `近 ${data.window.days} 天` : "经营数据"}
-        subtitle={data ? `${data.window.from} ~ ${data.window.to}` : null}
+        title={spu === M9_SPU ? "整只 SPU 的样例经营" : data ? `近 ${data.window.days} 天` : "经营数据"}
+        subtitle={
+          spu === M9_SPU
+            ? "含其他 SKU。渠道划分和上面的对照列不是同一套。"
+            : data
+              ? `${data.window.from} ~ ${data.window.to}`
+              : null
+        }
         extra={
           <Segmented
             value={days}

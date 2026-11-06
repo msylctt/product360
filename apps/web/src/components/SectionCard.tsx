@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
  * 只有需要统一的地方才用它，表格类卡片用 flush 去掉内边距。
  */
 export function SectionCard({
+  id,
   title,
   subtitle,
   extra,
@@ -14,6 +15,7 @@ export function SectionCard({
   flush,
   bordered = true,
 }: {
+  id?: string;
   title?: ReactNode;
   subtitle?: ReactNode;
   extra?: ReactNode;
@@ -25,6 +27,7 @@ export function SectionCard({
 }) {
   return (
     <Card
+      id={id}
       className={`section-card${flush ? " section-card--flush" : ""}`}
       style={bordered ? undefined : { boxShadow: "none" }}
       loading={loading}

@@ -10,6 +10,7 @@ import { DistributionBar } from "../components/DistributionBar";
 import { MetricCard } from "../components/Field";
 import { MiniChart } from "../components/MiniChart";
 import { SectionCard } from "../components/SectionCard";
+import { M9_HERO, M9_SPU } from "../components/M9Supplement";
 import { StateTag } from "../components/State";
 
 const STATE_COLOR: Record<number, string> = {
@@ -232,16 +233,20 @@ export function CatalogPage() {
                 <div
                   className="product-thumb"
                   style={
-                    row.spuImage
-                      ? { backgroundImage: `url(${row.spuImage})`, backgroundSize: "cover" }
+                    row.spuCode === M9_SPU || row.spuImage
+                      ? {
+                          backgroundImage: `url(${row.spuCode === M9_SPU ? M9_HERO : row.spuImage})`,
+                          backgroundSize: "cover",
+                        }
                       : undefined
                   }
                 >
-                  {row.spuImage ? null : "无图"}
+                  {row.spuCode === M9_SPU || row.spuImage ? null : "无图"}
                 </div>
                 <div style={{ minWidth: 0, flex: "1 1 auto" }}>
                   <div className="cell-title">
                     {row.spuName}
+                    {row.spuCode === M9_SPU ? <Tag color="green" style={{ marginLeft: 6 }}>资料最全</Tag> : null}
                     {row.spuLevelNew ? (
                       <Tag
                         style={{ marginLeft: 6 }}

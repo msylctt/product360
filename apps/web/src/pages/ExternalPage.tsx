@@ -7,6 +7,7 @@ import type { DataField, ExternalResponse } from "../api/types";
 import { DataValue, DelayNotice, MetaLine } from "../components/DataValue";
 import { DistributionBar } from "../components/DistributionBar";
 import { MetricCard } from "../components/Field";
+import { M9_SPU, M9ExternalSupplement } from "../components/M9Supplement";
 import { SectionCard } from "../components/SectionCard";
 import { StateTag } from "../components/State";
 import { TrendChart } from "../components/TrendChart";
@@ -69,10 +70,15 @@ export function ExternalPage() {
 
   return (
     <div className="page-stack">
+      {spu === M9_SPU ? <M9ExternalSupplement /> : null}
       {/* 段一：窗口 + 指标带 */}
       <div className="scope-bar">
         <span>
-          {data ? `窗口 ${data.window.from} ~ ${data.window.to}` : "外部信息"}
+          {spu === M9_SPU
+            ? `整只 SPU 的样例口碑，含其他 ASIN${data ? ` · ${data.window.from} ~ ${data.window.to}` : ""}`
+            : data
+              ? `窗口 ${data.window.from} ~ ${data.window.to}`
+              : "外部信息"}
           <span className="scope-bar__sep">|</span>
           口径：自有品牌评论（NPS）+ VOC 工单 + 竞品评论
         </span>
